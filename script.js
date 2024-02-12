@@ -1,4 +1,5 @@
 
+
 function Navbar(){
   let navbar = document.querySelector(".Navbar");
   let menu = document.querySelector(".icons #Menu");
@@ -17,7 +18,7 @@ function Navbar(){
 }
 Navbar();
 
-
+const fixedImage = document.querySelector("#fixed-image");
 
 // fixed -images
 
@@ -25,29 +26,33 @@ Navbar();
 function ImageShow(){
   document.querySelector(".all-project").addEventListener("mouseenter",function(){
 
-    document.querySelector("#fixed-image").style.display = "initial";
+    fixedImage.style.display = "initial";
+    document.querySelector("#cursor").style.display = "none";
+
   })
   document.querySelector(".all-project").addEventListener("mouseleave",function(){
   
-    document.querySelector("#fixed-image").style.display = "none";
+    fixedImage.style.display = "none";
+    document.querySelector("#cursor").style.display = "initial";
   })
   
   let pimg = document.querySelectorAll(".p-part");
   pimg.forEach(function(e){
     e.addEventListener("mouseenter",function(){
       let data = e.getAttribute("data-image")
-      document.querySelector("#fixed-image").style.backgroundImage = `url(${data})`;
+      fixedImage.style.backgroundImage = `url(${data})`;
     })
   
     e.addEventListener("mousemove",function(move){
-      document.querySelector("#fixed-image").style.top = `${move.clientY}px`
-      document.querySelector("#fixed-image").style.left = `${move.clientX}px`
-      document.querySelector("#fixed-image").style.transform = `translate(${move.clientX*0.20}px, ${-move.clientY*0.20}px`
+      fixedImage.style.top = `${move.clientY}px`
+      fixedImage.style.left = `${move.clientX}px`
+      fixedImage.style.transform = `translate(${move.clientX*0.20}px, ${-move.clientY*0.20}px`
     })
   
   })
 }
 ImageShow();
+
 // for time
 
 function displayTime(){
@@ -87,27 +92,16 @@ setTimeout(function(){
     document.querySelector("#loader").style.top="-100%"
 },3200)
 
+function Gsap(){
 
-let tl = gsap.timeline();
-
-tl.from(".home-nav",{
-  y :-20,
-  opacity:0,
-  duration:.2
-},1)
-
-tl.from(".home-part h1 span",{
-  stagger:.2,
-  opacity:.1,
-
-})
+  let tl = gsap.timeline();
 
 tl.from(".about .left",{
   scrollTrigger:{
     trigger:".about",
     scroller:"body",
     end:"50% 50%",
-    scrub:true
+    scrub:0,
   },
   scale:0
 })
@@ -117,7 +111,7 @@ tl.from(".about .right h2",{
     scroller:"body",
     start:"top 70%",
     end:"50% 50%",
-    scrub:true
+    scrub:0,
   },
   stagger:.5,
   x:200,
@@ -147,36 +141,13 @@ tl.from(".stack .line",{
 
 })
 
-tl.from(".stack .left-skills",{
-  scrollTrigger:{
-    trigger:".stack",
-    scroller:"body",
-    start:"top 80%",
-    end:"50% 90%",
-    scrub:true,
-    // markers:true
-  },
-  x:300,
-})
-tl.from(".stack .right-skills",{
-  scrollTrigger:{
-    trigger:".stack",
-    scroller:"body",
-    start:"top 80%",
-    end:"50% 90%",
-    scrub:true,
-    // markers:true
-  },
-  x:-300,
-})
-
 tl.from(".stack h1",{
   scrollTrigger:{
     trigger:".stack",
     scroller:"body",
     start:"top 50%",
     end:"50% 90%",
-    scrub:true,
+    scrub:1,
     // markers:true
   },
   scale:0
@@ -188,10 +159,13 @@ tl.from(".contact .circle",{
     scroller:"body",
     start:"top 80%",
     end:"50% 90%",
-    scrub:true,
+    scrub:1,
     // markers:true
   },
   top:"60%",
   opacity:.5
 })
+
+}
+Gsap();
 
